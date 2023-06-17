@@ -10,9 +10,23 @@ import user from '../../assets/img/user.png'
 import { NavLink, Link } from 'react-router-dom'
 import axios from 'axios'
 import { useActive } from '../../context/Active'
+import { useStoreg } from '../../context/storeg';
 export default function Navbar() {
   const [active, setActive] = useActive()
   const [data, setData] = useState([])
+  const [local, setLocal] = useState(false)
+  const [store,setStore] = useStoreg()
+
+  useEffect(()=>{
+     let res = JSON.parse(localStorage.getItem('loft'));
+     if(res){
+       setLocal(true)
+     }
+     else{
+      setLocal(false)
+     }
+      
+  },[store])
 
 
   useEffect(() => {
@@ -54,8 +68,11 @@ export default function Navbar() {
             <Heart className={data.length > 0 ? "favoret" : ""} />
           </Link>
           <Cart>
-            <Icons.Icon src={bag} />
-            <Cart.Icon />
+           <Link to={"/packet"}> <Icons.Icon src={bag} /></Link>
+            {
+              local&& <Cart.Icon />
+            }
+           
           </Cart>
 
           <Icons.Icon src={user} />

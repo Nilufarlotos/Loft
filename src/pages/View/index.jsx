@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Col, Comment, Container, Detaels, Img, Menu, Name, Nav, Row, Sizes, Star, Stars, Title } from './style'
+import { Col, Comment, Container, Detaels, Img, Menu, Name, Nav, Row, Sizes, Star, Stars, Title,Icon } from './style'
 import { Link, useParams } from 'react-router-dom'
 import axios from 'axios';
 import star from '../../assets/img/star.png'
@@ -20,6 +20,7 @@ export default function View() {
         "Content-Type": "application/json"
       }
     }).then(res => {
+      console.log(res.data)
       setData({ ...res.data })
       
     })
@@ -60,7 +61,7 @@ export default function View() {
             <Detaels>
               <Detaels.Price>{data?.price}₽</Detaels.Price>
               <Detaels.Button>Купить</Detaels.Button>
-              <Star src={heart} />
+              <Icon src={heart} className={data?.active ? "favoret" : ""} />
               <Detaels.Text>
                 Добавить в желаемое
               </Detaels.Text>

@@ -1,4 +1,8 @@
 import styled from 'styled-components';
+import {ReactComponent as heart} from '../../assets/svg/heart.svg'
+
+export const Icon =styled(heart)`
+`
 
 export const Container = styled.div`
  max-width: 1240px;

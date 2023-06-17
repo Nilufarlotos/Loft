@@ -7,6 +7,7 @@ import About from './pages/About'
 import Contact from './pages/Contact'
 import View from './pages/View'
 import Favourite from './pages/Favourite'
+import Packet from './pages/Packet'
 export default function Root() {
   return (
     <>
@@ -20,6 +21,7 @@ export default function Root() {
         <Route path='/contact' element={<Contact/>}/>
         <Route path='/favourite' element={<Favourite/>}/>
         <Route path='/view/:id' element={<View/>}/>
+        <Route path='/packet' element={<Packet/>}/>
       </Routes>
 
     </>

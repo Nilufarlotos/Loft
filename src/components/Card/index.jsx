@@ -3,8 +3,9 @@ import { Button, Container, Footer, Heart, Img, Price, SubTitle, Text, Title } f
 import chair from '../../assets/img/chair.png'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import { useStoreg } from '../../context/storeg';
 export default function Card({ value, setRender }) {
+    const [store,setStore] = useStoreg()
     const navigate = useNavigate()
     const getId = (id) => {
         axios.get(`https://6427fbdc46fd35eb7c492488.mockapi.io/student/${id}`, {
@@ -29,23 +30,32 @@ export default function Card({ value, setRender }) {
     }
 
     const addProduct = (item) => {
+        
+        setStore(!store)
 
         let res = JSON.parse(localStorage.getItem('loft'))
-        if (!res) {
-            item.count = 1;
-            localStorage.setItem('loft', JSON.stringify([item]))
+
+        if (res) {
+            console.log(res)
+            
+           let result = res.filter(i => i.id == item.id);
+            if (result.length > 0) {
+                res.map(a => {
+                    if (a.id == item.id) {
+                        a.count = a.count + 1;
+                    }
+                    return a;
+                })
+                localStorage.setItem('loft', JSON.stringify(res))
+            }
+            else{
+                item.count = 1;
+                localStorage.setItem('loft', JSON.stringify([...res,item]))  
+            }
         }
         else {
-
-            let s = res.map(el => {
-                if (el.id == item.id) {
-                    el.count = el.count + 1;
-                    return el
-                }
-            })
-
-
-            localStorage.setItem('loft', JSON.stringify(s))
+            item.count = 1;
+            localStorage.setItem('loft', JSON.stringify([item]))
         }
     }
 
